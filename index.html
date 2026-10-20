@@ -28,6 +28,14 @@
 .envelope::before{background:linear-gradient(145deg,#f9efd9 0%,#e2c8a3 100%)!important;clip-path:polygon(0 0,100% 0,50% 74%);opacity:1!important;transform-origin:top center!important;transform:rotateX(0deg)!important;transition:transform 2.6s cubic-bezier(.25,.05,.2,1),opacity 2s!important;box-shadow:0 5px 15px #52382033}
 .envelope.photo-opening::before{transform:rotateX(175deg)!important;opacity:.35!important}
 .envelope::after{background:linear-gradient(135deg,#fffefa,#f6ead8)!important;z-index:4!important}
+
+/* Self-hosted image assets; no external image links and no CSS envelope visible. */
+.envelope{background:url('assets/envelope-closed.svg') center/contain no-repeat!important;box-shadow:none!important;overflow:visible!important;aspect-ratio:3/2!important;width:min(94vw,850px)!important;height:auto!important;transition:transform 1.6s ease!important}
+.envelope::before{content:''!important;position:absolute!important;inset:0!important;clip-path:none!important;background:url('assets/envelope-open.svg') center/contain no-repeat!important;opacity:0!important;transform:none!important;transition:opacity 2.8s ease!important;box-shadow:none!important}
+.envelope.photo-opening::before{opacity:1!important;transform:none!important}
+.envelope::after{display:none!important}
+.scene{width:min(96vw,850px)!important;max-height:none!important;height:auto!important;aspect-ratio:3/2!important;min-height:0!important;margin-top:70px!important}
+.open-btn{bottom:-18px!important}
 </style>
 </head>
 <body>
