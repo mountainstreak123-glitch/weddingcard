@@ -22,6 +22,12 @@
 .envelope.photo-opening{transform:scale(1.035)!important}.envelope.photo-opening::before{opacity:1;transform:scale(1)}.envelope.photo-reveal::after{opacity:1;transform:translateY(0) scale(1)}
 @media(max-width:700px){.envelope::after{font-size:clamp(19px,6vw,31px);inset:12% 15%}}
 @media(prefers-reduced-motion:reduce){.envelope::before,.envelope::after{transition:none!important}}
+
+/* Offline-safe realistic paper envelope fallback: no broken external images */
+.envelope{background:linear-gradient(135deg,#fdf9ef 0%,#f2e6cf 49%,#e0cba9 100%)!important;box-shadow:0 22px 50px #4a372a55,inset 0 0 0 2px #d5b986!important;overflow:visible!important}
+.envelope::before{background:linear-gradient(145deg,#f9efd9 0%,#e2c8a3 100%)!important;clip-path:polygon(0 0,100% 0,50% 74%);opacity:1!important;transform-origin:top center!important;transform:rotateX(0deg)!important;transition:transform 2.6s cubic-bezier(.25,.05,.2,1),opacity 2s!important;box-shadow:0 5px 15px #52382033}
+.envelope.photo-opening::before{transform:rotateX(175deg)!important;opacity:.35!important}
+.envelope::after{background:linear-gradient(135deg,#fffefa,#f6ead8)!important;z-index:4!important}
 </style>
 </head>
 <body>
