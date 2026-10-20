@@ -14,6 +14,14 @@
 
 /* Photo storyboard: 4 columns x 2 rows, eight opening stages. */
 .intro{background:#e8dac7}.intro-copy{top:3%}.scene{height:min(66vw,520px);max-height:520px;min-height:290px;margin-top:100px;filter:none}.envelope{width:min(92vw,700px);height:auto;aspect-ratio:1.64;background-image:url('envelope-storyboard.png');background-size:400% 200%;background-position:0% 0%;background-repeat:no-repeat;transform:none!important;border-radius:5px;box-shadow:0 20px 50px #47301b4d;transition:none!important}.envelope>.env-back,.envelope>.letter,.envelope>.front,.envelope>.flap,.envelope>.seal{display:none!important}.envelope.frame-0{background-position:0% 0%}.envelope.frame-1{background-position:33.333% 0%}.envelope.frame-2{background-position:66.667% 0%}.envelope.frame-3{background-position:100% 0%}.envelope.frame-4{background-position:0% 100%}.envelope.frame-5{background-position:33.333% 100%}.envelope.frame-6{background-position:66.667% 100%}.envelope.frame-7{background-position:100% 100%}.intro.done{animation:fadeOut 1s ease forwards}.open-btn{bottom:0}.scene{width:min(94vw,700px)}@media(max-width:700px){.scene{height:auto;min-height:0;aspect-ratio:1.38;margin-top:95px}.envelope{width:100%;height:auto;aspect-ratio:1.64}.intro-copy h1{font-size:38px}.open-btn{bottom:0}}@media(prefers-reduced-motion:reduce){.envelope{transition:none!important}}
+
+/* Real photographic envelope: external royalty-free Unsplash photographs. */
+.envelope{background-image:url('https://images.unsplash.com/photo-1646568779353-b9d2b903b3e1?auto=format&fit=crop&w=1100&q=85')!important;background-size:cover!important;background-position:center center!important;overflow:hidden;isolation:isolate;box-shadow:0 25px 65px #503b2655!important;transition:transform 1.7s ease,box-shadow 1.7s ease!important}
+.envelope::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1646568780034-52b944cd01ae?auto=format&fit=crop&w=1100&q=85') center/cover;opacity:0;transform:scale(1.05);transition:opacity 2.2s ease,transform 3s ease;z-index:1}
+.envelope::after{content:'Amelia & Oliver\\A 20 JUNE 2027';white-space:pre;display:grid;place-content:center;position:absolute;inset:12% 17%;z-index:2;text-align:center;font:clamp(24px,4vw,48px)/1.7 'Great Vibes',cursive;color:#96753f;background:linear-gradient(135deg,#fffdf7,#f3e8d7);border:2px solid #c6a46d;box-shadow:0 8px 30px #2d201d44;opacity:0;transform:translateY(65%) scale(.87);transition:transform 2.6s cubic-bezier(.18,.75,.17,1),opacity 1.6s ease}
+.envelope.photo-opening{transform:scale(1.035)!important}.envelope.photo-opening::before{opacity:1;transform:scale(1)}.envelope.photo-reveal::after{opacity:1;transform:translateY(0) scale(1)}
+@media(max-width:700px){.envelope::after{font-size:clamp(19px,6vw,31px);inset:12% 15%}}
+@media(prefers-reduced-motion:reduce){.envelope::before,.envelope::after{transition:none!important}}
 </style>
 </head>
 <body>
@@ -38,9 +46,9 @@ let opened=false;
 openBtn.addEventListener('click',()=>{
  if(opened)return;opened=true;openBtn.disabled=true;openBtn.textContent='Opening your invitation…';
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- const frames=reduced? [7]:[1,2,3,4,5,6,7];
- frames.forEach((frame,i)=>window.setTimeout(()=>{envelope.className='envelope frame-'+frame;},reduced?0:(i+1)*850));
- window.setTimeout(()=>{site.classList.add('visible');intro.classList.add('done');window.setTimeout(()=>{intro.hidden=true;site.scrollIntoView({block:'start'});},reduced?20:950)},reduced?150:7000);
+ if(reduced){envelope.classList.add('photo-opening','photo-reveal');}
+ else {window.setTimeout(()=>envelope.classList.add('photo-opening'),350);window.setTimeout(()=>envelope.classList.add('photo-reveal'),3000);}
+ window.setTimeout(()=>{site.classList.add('visible');intro.classList.add('done');window.setTimeout(()=>{intro.hidden=true;site.scrollIntoView({block:'start'});},reduced?20:950)},reduced?150:6900);
 });
 const target=new Date('2027-06-20T16:00:00+02:00').getTime();
 function tick(){let remaining=Math.max(0,target-Date.now());const days=Math.floor(remaining/86400000);remaining%=86400000;const hours=Math.floor(remaining/3600000);remaining%=3600000;const minutes=Math.floor(remaining/60000);remaining%=60000;const seconds=Math.floor(remaining/1000);for(const [id,value] of Object.entries({days,hours,minutes,seconds}))document.getElementById(id).textContent=String(value).padStart(2,'0');if(Date.now()>=target)document.getElementById('countMessage').textContent='The celebration day has arrived!'}tick();setInterval(tick,1000);
